@@ -6,4 +6,4 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 WorkingDirectory=/opt/pve-traefik-sync
-ExecStart=/usr/bin/python3 /opt/pve-traefik-sync/sync.py
+ExecStart=/usr/bin/python3 /opt/pve-traefik-sync/sync.py --out-dir /etc/traefik/conf.d --passfile /root/.pve-pass
