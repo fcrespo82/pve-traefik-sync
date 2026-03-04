@@ -145,6 +145,8 @@ def main():
             if not ip:
                 continue
 
+            yml = traefik_dynamic_yaml(hostname, ip, scheme, port)
+
             fname = safe_filename(str(hostname)) + ".yaml"
             (OUT_DIR / fname).write_text(yml, encoding="utf-8")
 
