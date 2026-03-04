@@ -14,7 +14,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--pve", default="https://192.168.68.6:8006")
 parser.add_argument("--user", default="root@pam")
 parser.add_argument("--passfile", default=".pve-pass")
-parser.add_argument("--domain", default="lan")
+parser.add_argument("--domain", default="home.arpa")
 parser.add_argument("--out-dir", default="./out")
 
 args = parser.parse_args()
@@ -59,7 +59,7 @@ def web_from_description(desc):
 
 def traefik_dynamic_yaml(hostname, ip, scheme, port):
     name = str(hostname).lower()
-    fqdn = f"{name}.lan"
+    fqdn = f"{name}.{DOMAIN}"
     url = f"{scheme}://{ip}:{port}"
 
     # se backend é https self-signed, habilita transport inseguro (mínimo)
@@ -145,13 +145,10 @@ def main():
             if not ip:
                 continue
 
-            yml = traefik_dynamic_yaml(hostname, ip, scheme, port)
-
             fname = safe_filename(str(hostname)) + ".yaml"
             (OUT_DIR / fname).write_text(yml, encoding="utf-8")
 
     print(f"OK: arquivos gerados em {OUT_DIR.resolve()}")
-
 
 if __name__ == "__main__":
     main()
